@@ -1,0 +1,46 @@
+@import  './reset.scss';
+
+$메인칼라 : #c8c8c8;
+
+@mixin 함수() {
+    background:#eeeeee;
+    padding:15px 20px;
+    border-radius:5px;
+    max-width:500px;
+    width:100%;
+    margin: auto;
+}
+
+.wow-enter {
+    opacity: 0;
+}
+
+.wow-enter-active {
+    opacity: 1;
+    transition: all 500ms;
+}
+
+.red {
+    color:$메인칼라;
+}
+
+.my-alert{
+    @include 함수()
+}
+
+.my-alert-red {
+    @extend .my-alert;
+    background: #fabdbd;
+}
+
+.my-alert p {
+    margin-bottom: 0;
+
+}
+
+div.container{
+    h4 {
+        color: blue;
+    }
+
+}
