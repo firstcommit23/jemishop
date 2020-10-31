@@ -8,9 +8,45 @@ import * as serviceWorker from './serviceWorker';
 import { BrowserRouter} from 'react-router-dom';
 
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
+import {combineReducers, createStore} from 'redux';
 
-let store = createStore(()=>{ return [{ id:0, name:'코로나', quan:22 }]});
+
+let 초기값 = [{ id:0, name:'코로나', quan:1 },{ id:1, name:'코로나2', quan:2 }];
+
+function reducer(state = 초기값, 액션) {
+
+  if (액션.type === '항목추가' ) {
+    let copy = [...state];
+    copy.push(액션.payload);
+    return copy;
+  } else if (액션.type === '수량증가') {
+    let copy = [...state];
+    copy[액션.id].quan++;
+
+    return copy;
+  } else if (액션.type === '수량감소') {
+    let copy = [...state];
+    if (copy[액션.id].quan > 0 ) {
+      copy[액션.id].quan--;
+    }
+
+    return copy;;
+  } else {
+    return state;
+  }
+}
+
+function reducer2(state = true, 액션) {
+    if (액션.type === '닫기') {
+      return !state;
+    } else {
+      return state;
+    }
+}
+
+
+
+let store = createStore(combineReducers({reducer, reducer2}));
 
 ReactDOM.render(
   <React.StrictMode>

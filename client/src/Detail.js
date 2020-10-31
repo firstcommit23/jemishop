@@ -5,6 +5,7 @@ import './Detail.scss';
 import {재고Context} from './App.js'
 import { Navbar,Nav,NavDropdown,Button,Jumbotron } from 'react-bootstrap';
 
+import { connect } from 'react-redux';
 
 import {CSSTransition} from "react-transition-group";
 
@@ -71,6 +72,8 @@ function Detail(props) {
               var array = [...props.재고];
               array[0]--;
               props.재고변경(array);
+              props.dispatch({type: '항목추가', payload: {id:item.id, name:item.title, quan:1}});
+              history.push("/cart");
             }}>주문하기</button> 
             <button className="btn link" onClick={()=>{
                 history.goBack();
@@ -125,4 +128,13 @@ function Info(props) {
   )
 }
 
-export default Detail;
+
+function 함수명(state) {
+  return {
+      state : state.reducer
+  }
+}
+
+export default connect(함수명)(Detail);
+
+//export default Detail;
