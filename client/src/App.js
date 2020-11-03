@@ -1,5 +1,5 @@
 /* eslint-disable */
-import React, {createContext, useState, useContext} from 'react';
+import React, {createContext, useState, useContext, lazy, Suspense, memo} from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Data from './data.js';
@@ -7,9 +7,10 @@ import {useHistory} from 'react-router-dom';
 import { Navbar,Nav,NavDropdown,Button,Jumbotron } from 'react-bootstrap';
 
 import {Link, Route, Switch} from 'react-router-dom';
-import Detail from './Detail.js';
-import axios from 'axios';
+//import Detail from './Detail.js';
+let Detail = lazy(()=>{ return import('./Detail.js') });
 import Cart from './Cart.js';
+import axios from 'axios';
 
 // 범위생성
 export let 재고Context = React.createContext();
@@ -18,6 +19,10 @@ function App() {
   let [item, item_change] = useState(Data);
   let [재고,재고변경] = useState([10,11,12]);
 
+  let child2 = memo(function() {
+    return <div>222</div>
+  });
+  
  // console.log(item);
   return (
     <div className="App">
@@ -83,7 +88,9 @@ function App() {
         </Route>
         
         <Route path="/detail/:id">
-          <Detail item={item} 재고={재고} 재고변경={재고변경}/>
+          <Suspense fallback={<div>로딩주이예요</div>}>
+              <Detail item={item} 재고={재고} 재고변경={재고변경}/>
+          </Suspense>
         </Route>
 
         <Route path="/noitem" >
@@ -105,7 +112,7 @@ function App() {
   function Item(props) {
     let history = useHistory();
     let 재고 = useContext(재고Context);
-
+    //history.push('/detail/'+props.i)
     return (
         <div className="col-md-4" onClick={()=>{location.href="/detail/"+props.아이템.id;}}> 
           <img src={'https://codingapple1.github.io/shop/shoes'+(props.아이템.id+1)+'.jpg'} width="100%" />

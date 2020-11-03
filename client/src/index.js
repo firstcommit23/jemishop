@@ -13,12 +13,21 @@ import {combineReducers, createStore} from 'redux';
 
 let 초기값 = [{ id:0, name:'코로나', quan:1 },{ id:1, name:'코로나2', quan:2 }];
 
+
+
 function reducer(state = 초기값, 액션) {
 
   if (액션.type === '항목추가' ) {
-    let copy = [...state];
-    copy.push(액션.payload);
-    return copy;
+    let found = state.findIndex((x)=>{return x.id === 액션.payload.id});
+    if (found >= 0) {
+      let copy = [...state];
+        copy[found].quan++;
+        return copy;
+    } else {
+      let copy = [...state];
+      copy.push(액션.payload);
+      return copy;
+    }
   } else if (액션.type === '수량증가') {
     let copy = [...state];
     copy[액션.id].quan++;
