@@ -19,36 +19,25 @@ const connection = mysql.createConnection({
   database: conf.database
 });
 connection.connect();
+
 app.get('/api/item', (req, res) => {
-   /* connection.query(
-      "SELECT * FROM USERS",
+    connection.query(
+      "SELECT * FROM item",
       (err, rows, fields) => {
         res.send(rows);
       }
-    )*/
-    res.send([
-      {
-        id : 0,
-        title : "White and Black",
-        content : "Born in France",
-        price : 120000
-      },
-    
-      {
-        id : 1,
-        title : "Red Knit",
-        content : "Born in Seoul",
-        price : 110000
-      },
-    
-      {
-        id : 2,
-        title : "Grey Yordan",
-        content : "Born in the States",
-        price : 130000
-      }
-    ] );
+    )
+});
 
+app.get('/api/detail/:id', (req, res) => {
+    let sql = "SELECT * FROM item where id = ?";
+    let params = [req.params.id];
+
+    connection.query(sql, params,
+    (err, rows, fields) => {
+      res.send(rows);
+    }
+  )
 });
 
 app.get('/api/user', (req, res) => {

@@ -42,6 +42,8 @@ function Detail(props) {
 
     let item = props.item.find(x => x.id == id);
 
+var style = {color : 'white'};
+
     if(item===undefined) history.push("/noitem");
 
     return (

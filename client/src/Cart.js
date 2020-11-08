@@ -2,7 +2,6 @@ import React from 'react';
 import {Table} from 'react-bootstrap';
 import { connect } from 'react-redux';
 
-
 function Cart(props) {
 
     return (
@@ -43,9 +42,7 @@ function Cart(props) {
                 : null 
             }
 
-
         </div>
-
     )
 }
 

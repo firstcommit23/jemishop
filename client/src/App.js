@@ -2,6 +2,7 @@
 import React, {createContext, useState, useContext, lazy, Suspense, memo} from 'react';
 import logo from './logo.svg';
 import './App.css';
+import Dashboard from './admin/Dashboard.js';
 import Data from './data.js';
 import {useHistory} from 'react-router-dom';
 import { Navbar,Nav,NavDropdown,Button,Jumbotron } from 'react-bootstrap';
@@ -17,6 +18,9 @@ export let 재고Context = React.createContext();
 
 function App() {
   let [item, item_change] = useState(Data);
+  
+
+
   let [재고,재고변경] = useState([10,11,12]);
 
   let child2 = memo(function() {
@@ -26,7 +30,12 @@ function App() {
  // console.log(item);
   return (
     <div className="App">
-      <Navbar bg="light" expand="lg">
+
+      <Switch>
+        
+      <Route path="/admin" component={Dashboard} />
+
+        <Navbar bg="light" expand="lg">
         <Navbar.Brand href="/">재미샵</Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -43,9 +52,8 @@ function App() {
           </Nav>
         </Navbar.Collapse>
       </Navbar>
-
-      <Switch>
         <Route exact path="/">
+
           <Jumbotron className="background">
             <h1>1 + 1 + 1 = 5! </h1>
             <p>
@@ -96,7 +104,7 @@ function App() {
         <Route path="/noitem" >
           <div>상품이 존재하지 않습니다.</div>
         </Route>
-
+        
         <Route path="/cart" >
           <Cart></Cart>
         </Route>
