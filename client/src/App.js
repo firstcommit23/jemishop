@@ -1,6 +1,5 @@
 /* eslint-disable */
 import React, {createContext, useState, useContext, lazy, Suspense, memo} from 'react';
-import logo from './logo.svg';
 import './App.css';
 import Dashboard from './admin/Dashboard.js';
 import Data from './data.js';
@@ -19,8 +18,6 @@ export let 재고Context = React.createContext();
 function App() {
   let [item, item_change] = useState(Data);
   
-
-
   let [재고,재고변경] = useState([10,11,12]);
 
   let child2 = memo(function() {
@@ -35,25 +32,8 @@ function App() {
         
       <Route path="/admin" component={Dashboard} />
 
-        <Navbar bg="light" expand="lg">
-        <Navbar.Brand href="/">재미샵</Navbar.Brand>
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto">
-            <Nav.Link as={Link} to="/">Home</Nav.Link>
-            <Nav.Link as={Link} to="/detail">Detail</Nav.Link>
-            <NavDropdown title="Dropdown" id="basic-nav-dropdown">
-              <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
-              <NavDropdown.Divider />
-              <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
-            </NavDropdown>
-          </Nav>
-        </Navbar.Collapse>
-      </Navbar>
         <Route exact path="/">
-
+          <MyNavbar />
           <Jumbotron className="background">
             <h1>1 + 1 + 1 = 5! </h1>
             <p>
@@ -96,20 +76,24 @@ function App() {
         </Route>
         
         <Route path="/detail/:id">
+          <MyNavbar />
           <Suspense fallback={<div>로딩주이예요</div>}>
               <Detail item={item} 재고={재고} 재고변경={재고변경}/>
           </Suspense>
         </Route>
 
         <Route path="/noitem" >
+          <MyNavbar />
           <div>상품이 존재하지 않습니다.</div>
         </Route>
         
         <Route path="/cart" >
+          <MyNavbar />
           <Cart></Cart>
         </Route>
 
         <Route path="/:id" >
+          <MyNavbar />
           <div>아무거나 적었을때 이거 보여 주시오</div>
         </Route>
         
@@ -135,6 +119,22 @@ function App() {
     let 재고 = useContext(재고Context);
 
     return <p>{재고}</p>
+  }
+
+  function MyNavbar() {
+    return <div>
+      
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand href="/">재미샵</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Link as={Link} to="/">Home</Nav.Link>
+            <Nav.Link as={Link} to="/admin">Admin</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    </div>
   }
 }
 

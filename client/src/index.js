@@ -10,10 +10,52 @@ import { BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {combineReducers, createStore} from 'redux';
 
+import axios from 'axios';
 
 let 초기값 = [{ id:0, name:'코로나', quan:1 },{ id:1, name:'코로나2', quan:2 }];
 
 
+// let items = ()=> {
+//   return axios.get('http://localhost:5000/api/item')
+//   .then((result)=>{
+//     return result.data;
+//   })
+//   .catch(()=>{
+//     console.log('fail');
+//   });
+//   };
+
+//   let tt = items();
+//   console.log(tt);
+
+let items =
+  [
+    {
+      id : 0,
+      title : "White and Black",
+      content : "Born in France",
+      price : 120000
+    },
+  
+    {
+      id : 1,
+      title : "Red Knit",
+      content : "Born in Seoul",
+      price : 110000
+    },
+  
+    {
+      id : 2,
+      title : "Grey Yordan",
+      content : "Born in the States",
+      price : 130000
+    }
+  ] ;
+
+
+function reducerItem(state = items, 액션) {
+  return state;
+}
 
 function reducer(state = 초기값, 액션) {
 
@@ -55,7 +97,7 @@ function reducer2(state = true, 액션) {
 
 
 
-let store = createStore(combineReducers({reducer, reducer2}));
+let store = createStore(combineReducers({reducer, reducer2,reducerItem}));
 
 ReactDOM.render(
   <React.StrictMode>

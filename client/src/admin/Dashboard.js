@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { useState, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
 import styled from 'styled-components';
@@ -5,11 +6,12 @@ import SideNav, { Toggle, Nav, NavItem, NavIcon, NavText } from '@trendmicro/rea
 import { Link, Route, Switch } from 'react-router-dom';
 
 import Order from './Order.js';
+import Items from './Items.js';
 // Be sure to include styles at some point, probably during your bootstraping
 import '@trendmicro/react-sidenav/dist/react-sidenav.css';
 
-let 박스 = styled.div`
-  padding:20px;
+let pd30 = styled.div`
+  padding-left:20px;
 `;
 
 let H4Title = styled.h4`
@@ -77,7 +79,7 @@ function Dashboard({ match }) {
                 <Order />
             </Route>
             <Route path={`${match.path}/item`} >
-                <div>itemmmmmmmmmmmmmm</div>
+                <Items />
             </Route>
         </div>
     )
