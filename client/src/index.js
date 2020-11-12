@@ -10,8 +10,6 @@ import { BrowserRouter} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {combineReducers, createStore} from 'redux';
 
-import axios from 'axios';
-
 let 초기값 = [{ id:0, name:'코로나', quan:1 },{ id:1, name:'코로나2', quan:2 }];
 
 

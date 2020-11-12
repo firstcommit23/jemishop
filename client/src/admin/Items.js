@@ -24,9 +24,8 @@ function Items(props) {
 
     return (
         <div style={{ padding: '20px 70px' }}>
-
             <hr />
-            <h2>상품관리</h2><soan>등록상품수:{items.length}</soan>
+            <h2>상품관리</h2><span>등록상품수:{items.length}</span>
             <Table striped bordered hover>
                 <thead>
                     <tr>
@@ -64,43 +63,53 @@ function Items(props) {
 
 function ItemAdd(props) {
 
-    let initItem;
-
-    useEffect(()=>{
-
-        if (props.item === undefined) {
-            initItem = [{
+    let initItem = () => {
+        
+        if (props.item === '') {
+            initItem ={
                 id: '',
                 title: '',
                 image: '',
                 price: '',
-                stock: ''
-            }];
+                stock: '',
+                file: '',
+                fileName: ''
+            };
         } else {
             initItem = props.item;
         }
 
-    },[]);
-    let [item, Setitem] = useState(initItem);
+        return initItem;
+    };
+
+    let [item, Setitem] = useState(initItem());
 
     let addItem = () => {
-        const url = '/api/item';
+        const url = 'http://localhost:5000/api/item';
         const formData = new FormData();
         formData.append('image', item.file);
         formData.append('title', item.title);
         formData.append('id', item.id);
         formData.append('price', item.price);
-        formData.append('stock', item.stock);
+        formData.append('new_flag', '0');
+        formData.append('userId', 'jemi22');
+        formData.append('content', '');
+        
+        formData.append('stock', 1);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
             }
         }
+        console.log(formData.get("image"));
+        alert('aaa');
         return post(url, formData, config);
+
+     return ;
     }
 
     const handelFileChange = (e) => {
-        let copy = [...item];
+        let copy = item;
         copy.file = e.target.files[0];
         copy.fileName = e.target.value;
         Setitem(copy);
@@ -109,15 +118,15 @@ function ItemAdd(props) {
     const handleValueChange = (e) => {
         const {value, name} = e.target;
         console.log(item);
-        let copy = [...item];
-        switch (name) {
-            case 'itemName':
-                copy.title = value;
-                break;
-            case 'itemPrice':
-                copy.price = value;
-                break;
+        let copy = item;
+        if (name === 'itemName') {
+
+            copy.title = value;
+        } else if (name === 'itemPrice') {
+            
+            copy.price = value;
         }
+        
         Setitem(copy);
     }
 
